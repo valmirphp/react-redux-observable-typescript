@@ -22,18 +22,6 @@ const initialTodosState: Todo[] = [
   },
 ];
 
-// function createTree<key, type>(): {[k:key]: [t:type]} {
-//     return {
-//
-//     };
-// }
-//
-// function mergeData<T>(state: T[], newState: T[]): T[] {
-//   const data: T[] = [...state];
-//
-//   return [...data, ...newState];
-// }
-
 export const todos = createReducer<Todo[]>(initialTodosState)
   .handleAction(loadTodosAsync.success, (state, action) => [...action.payload])
   .handleAction(saveTodosAsync.success, (state, action) => [...action.payload])

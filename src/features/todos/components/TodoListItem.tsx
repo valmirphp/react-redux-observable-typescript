@@ -1,11 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 
 interface Props {
   title: string;
   onRemoveClick: () => void;
 }
 
-function TodoListItem({ title, onRemoveClick }: Props) {
+const getStyle = (): React.CSSProperties => ({
+  overflowX: 'hidden',
+  textOverflow: 'ellipsis',
+});
+
+export default ({ title, onRemoveClick }: Props) => {
   return (
     <div style={getStyle()}>
       {title}
@@ -17,11 +22,4 @@ function TodoListItem({ title, onRemoveClick }: Props) {
       </div>
     </div>
   );
-}
-
-const getStyle = (): React.CSSProperties => ({
-  overflowX: 'hidden',
-  textOverflow: 'ellipsis',
-});
-
-export default TodoListItem;
+};

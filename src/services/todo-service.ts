@@ -1,6 +1,6 @@
 import { Todo } from 'MyModels';
 import { forkJoin, Observable, throwError } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 import { RxAxios } from '../share/rx-axios';
 
 export class TodoService {
@@ -15,7 +15,7 @@ export class TodoService {
   }
 
   loadSnapshot(): Observable<Todo[]> {
-    return this.api.get<Todo[]>('/todos');
+    return this.api.get<Todo[]>('/todos').pipe(delay(1000));
   }
 
   saveSnapshot(data: Todo[]): Observable<Todo[]> {

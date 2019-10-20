@@ -1,24 +1,32 @@
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'typesafe-actions';
-import * as React from 'react';
-import { connect } from 'react-redux';
-
+import { Todo } from 'MyModels';
 import * as selectors from '../selectors';
 import * as actions from '../actions';
-
 import TodoListItem from './TodoListItem';
 
-const mapStateToProps = (state: RootState) => ({
-  isLoading: state.todos.isLoadingTodos,
-  allTodos: state.todos,
-  todos: selectors.getActiveTodos(state.todos),
-});
-const dispatchProps = {
-  removeTodo: actions.removeTodo,
+type State = {
+  isLoading: boolean;
+  todos: Todo[];
 };
 
-type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
+const mapStateToProps = (state: RootState): State => ({
+  isLoading: state.todos.isLoadingTodos,
+  todos: selectors.getActiveTodos(state.todos),
+});
 
-function TodoList({ isLoading, todos = [], removeTodo }: Props) {
+const getStyle = (): React.CSSProperties => ({
+  textAlign: 'left',
+  margin: 'auto',
+  maxWidth: 500,
+});
+
+export default () => {
+  const { isLoading, todos } = useSelector<RootState, State>(mapStateToProps);
+  const dispatch = useDispatch();
+  const removeTodo = (id: string) => dispatch(actions.removeTodo(id));
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -35,15 +43,4 @@ function TodoList({ isLoading, todos = [], removeTodo }: Props) {
       ))}
     </ul>
   );
-}
-
-const getStyle = (): React.CSSProperties => ({
-  textAlign: 'left',
-  margin: 'auto',
-  maxWidth: 500,
-});
-
-export default connect(
-  mapStateToProps,
-  dispatchProps
-)(TodoList);
+};

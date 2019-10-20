@@ -1,58 +1,40 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { addTodo } from '../actions';
 
-const dispatchProps = {
-  addItem: (title: string) => addTodo({ title }),
-};
+type EventHandler = React.ReactEventHandler<HTMLInputElement>;
 
-type Props = {
-  addItem: (title: string) => void;
-};
+export default () => {
+  const [title, setTitle] = useState<string>('');
 
-type State = {
-  title: string;
-};
+  const dispatch = useDispatch();
 
-class AddTodoForm extends React.Component<Props, State> {
-  readonly state = { title: '' };
-
-  handleTitleChange: React.ReactEventHandler<HTMLInputElement> = ev => {
-    this.setState({ title: ev.currentTarget.value });
+  const handleAddClick = () => {
+    dispatch(addTodo({ title }));
+    setTitle('');
   };
 
-  handleAddClick = () => {
-    this.props.addItem(this.state.title);
-    this.setState({ title: '' });
-  };
+  const handleTitleChange: EventHandler = ev =>
+    setTitle(ev.currentTarget.value);
 
-  render() {
-    const { title } = this.state;
-
-    return (
-      <form
-        onSubmit={ev => {
-          ev.preventDefault();
-        }}
-      >
-        <input
-          style={{ width: 450 }}
-          type="text"
-          placeholder="Enter new item"
-          value={title}
-          onChange={this.handleTitleChange}
-        />
-        &nbsp;
-        <button type="submit" onClick={this.handleAddClick} disabled={!title}>
-          Add
-        </button>
-      </form>
-    );
-  }
-}
-
-export default connect(
-  null,
-  dispatchProps
-)(AddTodoForm);
+  return (
+    <form
+      onSubmit={ev => {
+        ev.preventDefault();
+      }}
+    >
+      <input
+        style={{ width: 450 }}
+        type="text"
+        placeholder="Enter new item"
+        value={title}
+        onChange={handleTitleChange}
+      />
+      &nbsp;
+      <button type="submit" onClick={handleAddClick} disabled={!title}>
+        Add
+      </button>
+    </form>
+  );
+};
