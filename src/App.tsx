@@ -1,16 +1,14 @@
 import React from 'react';
+import TodosView from './features/todos/components/TodosView';
 import './App.css';
-import {Provider} from "react-redux";
-import {store} from "./store";
 
 const App: React.FC = () => {
-    return (
-        <Provider store={store}>
-            <div className="App">
-                <h2>Demo</h2>
-            </div>
-        </Provider>
-    );
-}
+  return (
+    <div className="App">
+      <h2>Demo</h2>
+      <TodosView />
+    </div>
+  );
+};
 
 export default App;

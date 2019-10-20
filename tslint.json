@@ -1,0 +1,10 @@
+{
+  "extends": ["./node_modules/react-redux-typescript-scripts/tslint.json"],
+  "linterOptions": {
+    "exclude": ["./src/typesafe-actions/**/*"]
+  },
+  "rules": {
+    "no-import-side-effect": [true, { "ignore-module": "(\\.html|\\.css)$" }],
+    "no-console": false
+  }
+}

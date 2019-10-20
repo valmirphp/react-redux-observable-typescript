@@ -19,7 +19,9 @@
     "noEmit": true,
     "jsx": "react"
   },
+  "extends": "./node_modules/react-redux-typescript-scripts/tsconfig.json",
   "include": [
-    "src"
+    "src",
+    "typings"
   ]
 }

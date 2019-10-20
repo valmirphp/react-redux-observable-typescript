@@ -1,46 +1,33 @@
-import {ActionType} from "typesafe-actions";
-import {applyMiddleware, compose, createStore} from "redux";
-import {createEpicMiddleware} from "redux-observable";
+import { createStore, applyMiddleware } from 'redux';
+import { createEpicMiddleware } from 'redux-observable';
+import { RootAction, RootState, Services } from 'typesafe-actions';
 
+import { composeEnhancers } from './utils';
+import rootReducer from './root-reducer';
+import rootEpic from './root-epic';
+import services from '../services';
 
-/**
- * Redux store setup
- */
-import * as actions from "./actions";
-import reducers, {RootState} from "./reducers";
-import epics from "./epics";
+export const epicMiddleware = createEpicMiddleware<
+  RootAction,
+  RootAction,
+  RootState,
+  Services
+>({
+  dependencies: services,
+});
 
-type Action = ActionType<typeof actions>;
+// configure middlewares
+const middlewares = [epicMiddleware];
+// compose enhancers
+const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
-declare global {
-    interface Window {
-        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
-    }
-}
+// rehydrate state on app start
+const initialState = {};
 
-const composeEnhancers = (
-    window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-) || compose;
+// create store
+const store = createStore(rootReducer, initialState, enhancer);
 
-const epicMiddleware = createEpicMiddleware<Action, Action, RootState>();
+epicMiddleware.run(rootEpic);
 
-function configureStore(initialState?: RootState) {
-    // configure middlewares
-    const middlewares = [
-        epicMiddleware,
-    ];
-    // compose enhancers
-    const enhancer = composeEnhancers(
-        applyMiddleware(...middlewares)
-    );
-    // create store
-    return createStore(
-        reducers,
-        initialState,
-        enhancer
-    );
-}
-
-export const store = configureStore();
-
-epicMiddleware.run(epics);
+// export store singleton instance
+export default store;
