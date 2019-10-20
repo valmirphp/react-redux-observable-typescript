@@ -1,11 +1,11 @@
+import { TodoService } from './todo-service';
 import * as logger from './logger-service';
-import * as todos from './todos-api-client';
 import { api } from './api';
 
 export default {
-  logger,
   http: api,
+  logger,
   api: {
-    todos,
+    todos: new TodoService(api),
   },
 };
