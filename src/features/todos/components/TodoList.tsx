@@ -5,6 +5,7 @@ import { Todo } from 'MyModels';
 import * as selectors from '../selectors';
 import * as actions from '../actions';
 import TodoListItem from './TodoListItem';
+import { StyledTodoList } from './style';
 
 type State = {
   isLoading: boolean;
@@ -14,12 +15,6 @@ type State = {
 const mapStateToProps = (state: RootState): State => ({
   isLoading: state.todos.isLoadingTodos,
   todos: selectors.getActiveTodos(state.todos),
-});
-
-const getStyle = (): React.CSSProperties => ({
-  textAlign: 'left',
-  margin: 'auto',
-  maxWidth: 500,
 });
 
 export default () => {
@@ -32,15 +27,14 @@ export default () => {
   }
 
   return (
-    <ul style={getStyle()}>
+    <StyledTodoList>
       {todos.map(todo => (
-        <li key={todo.id}>
-          <TodoListItem
-            title={todo.title}
-            onRemoveClick={() => removeTodo(todo.id)}
-          />
-        </li>
+        <TodoListItem
+          key={todo.id}
+          title={todo.title}
+          onRemoveClick={() => removeTodo(todo.id)}
+        />
       ))}
-    </ul>
+    </StyledTodoList>
   );
 };

@@ -19,11 +19,7 @@ export default () => {
     setTitle(ev.currentTarget.value);
 
   return (
-    <form
-      onSubmit={ev => {
-        ev.preventDefault();
-      }}
-    >
+    <form onSubmit={ev => ev.preventDefault()}>
       <input
         style={{ width: 450 }}
         type="text"

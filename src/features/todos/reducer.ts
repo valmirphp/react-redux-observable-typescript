@@ -27,14 +27,9 @@ export const todos = createReducer<Todo[]>(initialTodosState)
   .handleAction(saveTodosAsync.success, (state, action) => [...action.payload])
   .handleAction(addTodo, (state, action) => [...state, action.payload])
   .handleAction(removeTodo, (state, action) => {
-    const of = state.findIndex(todo => todo.id === action.payload);
-    if (of !== -1) {
-      state[of] = {
-        ...state[of],
-        isDeleted: true,
-      };
-    }
-    return [...state];
+    return state.map(todo =>
+      todo.id === action.payload ? { ...todo, isDeleted: true } : todo
+    );
   });
 
 const todosReducer = combineReducers({

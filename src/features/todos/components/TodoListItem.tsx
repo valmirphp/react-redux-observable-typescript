@@ -1,25 +1,16 @@
 import React from 'react';
+import { ButtonRemove, StyledTodoItem } from './style';
 
 interface Props {
   title: string;
   onRemoveClick: () => void;
 }
 
-const getStyle = (): React.CSSProperties => ({
-  overflowX: 'hidden',
-  textOverflow: 'ellipsis',
-});
-
 export default ({ title, onRemoveClick }: Props) => {
   return (
-    <div style={getStyle()}>
+    <StyledTodoItem>
       {title}
-      <div
-        style={{ color: 'darkred', float: 'right', cursor: 'pointer' }}
-        onClick={onRemoveClick}
-      >
-        X
-      </div>
-    </div>
+      <ButtonRemove onClick={onRemoveClick}>X</ButtonRemove>
+    </StyledTodoItem>
   );
 };
