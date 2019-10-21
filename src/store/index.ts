@@ -6,6 +6,8 @@ import { composeEnhancers } from './utils';
 import rootReducer from './root-reducer';
 import rootEpic from './root-epic';
 import services from '../services';
+import { routerMiddleware } from 'connected-react-router';
+import history from '../routes/history';
 
 export const epicMiddleware = createEpicMiddleware<
   RootAction,
@@ -17,7 +19,8 @@ export const epicMiddleware = createEpicMiddleware<
 });
 
 // configure middlewares
-const middlewares = [epicMiddleware];
+const middlewares = [routerMiddleware(history), epicMiddleware];
+
 // compose enhancers
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 

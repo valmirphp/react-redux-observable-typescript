@@ -1,10 +1,16 @@
 import { combineReducers } from 'redux';
+import { connectRouter, RouterState } from 'connected-react-router';
 
-import { routerReducer } from 'react-router-redux';
-import todosReducer from '../features/todos/reducer';
+import todosReducer, { TodosState } from '../features/todos/reducer';
+import history from '../routes/history';
 
-const rootReducer = combineReducers({
-  router: routerReducer,
+export interface RotState {
+  todos: TodosState;
+  router: RouterState;
+}
+
+const rootReducer = combineReducers<RotState>({
+  router: connectRouter(history),
   todos: todosReducer,
 });
 
