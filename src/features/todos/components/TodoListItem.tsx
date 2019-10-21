@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonRemove, StyledTodoItem } from './style';
+import { ButtonRemove, StyledTodoItem } from './todos.style';
 
 interface Props {
   title: string;

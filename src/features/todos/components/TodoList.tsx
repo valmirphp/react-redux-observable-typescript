@@ -5,7 +5,7 @@ import { Todo } from 'MyModels';
 import * as selectors from '../selectors';
 import * as actions from '../actions';
 import TodoListItem from './TodoListItem';
-import { StyledTodoList } from './style';
+import { StyledTodoList } from './todos.style';
 
 type State = {
   isLoading: boolean;
