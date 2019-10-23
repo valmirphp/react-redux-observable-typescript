@@ -4,6 +4,8 @@ import { ConnectedRouter } from 'connected-react-router';
 
 import About from '../features/about/About';
 import TodosView from '../features/todos/components/TodosView';
+import Login from '../features/auth/components/Login';
+import PrivateRoute from './PrivateRoute';
 import history from './history';
 
 export const Routes = () => (
@@ -11,7 +13,8 @@ export const Routes = () => (
     <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/" component={About} />
-        <Route path="/todos" component={TodosView} />
+        <Route exact path="/auth" component={Login} />
+        <PrivateRoute path="/todos" component={TodosView} />
       </Switch>
     </ConnectedRouter>
   </BrowserRouter>

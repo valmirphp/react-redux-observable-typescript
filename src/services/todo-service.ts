@@ -1,7 +1,7 @@
 import { Todo } from 'MyModels';
 import { forkJoin, Observable, throwError } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
-import { RxAxios } from '../share/rx-axios';
+import { RxAxios } from '../shared/rx-axios';
 
 export class TodoService {
   constructor(private api: RxAxios) {}

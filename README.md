@@ -1,5 +1,31 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Run project
+
+> To run this project you need to start json-server together
+
+### Start app
+
+```bash
+yarn install
+yarn start
+```
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### Start Json-Server
+
+Open new console: 
+
+```bash
+cd server
+yarn install
+yarn start
+```
+
+Ref: https://github.com/typicode/json-server
+Open [http://localhost:3005](http://localhost:3005) to view it in the browser.
+
+
 ## Available Scripts
 
 In the project directory, you can run:

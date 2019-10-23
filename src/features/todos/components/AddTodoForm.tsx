@@ -5,7 +5,7 @@ import { addTodo } from '../actions';
 
 type EventHandler = React.ReactEventHandler<HTMLInputElement>;
 
-export default () => {
+const AddTodoForm: React.FC = () => {
   const [title, setTitle] = useState<string>('');
 
   const dispatch = useDispatch();
@@ -34,3 +34,5 @@ export default () => {
     </form>
   );
 };
+
+export default AddTodoForm;

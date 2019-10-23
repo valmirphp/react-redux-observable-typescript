@@ -18,9 +18,9 @@ const mapStateToProps = (state: RootState): State => ({
 });
 
 export default () => {
-  const { isLoading, todos } = useSelector<RootState, State>(mapStateToProps);
   const dispatch = useDispatch();
   const removeTodo = (id: string) => dispatch(actions.removeTodo(id));
+  const { isLoading, todos } = useSelector<RootState, State>(mapStateToProps);
 
   if (isLoading) {
     return <p>Loading...</p>;
