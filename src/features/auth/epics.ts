@@ -2,9 +2,9 @@ import { of } from 'rxjs';
 import { catchError, filter, map, mergeMap } from 'rxjs/operators';
 import { IEpicRoot, isActionOf } from 'typesafe-actions';
 
-import { loadAuthAsync, setUserAuth } from './actions';
+import { loadAuthAsync, logoutAuth, setUserAuth } from './actions';
 import { push } from 'connected-react-router';
-import { noAction } from '../../store/root-action';
+import { emptyAction } from '../../store/root-action';
 
 export const loadAuthEpic: IEpicRoot = (action$, state$, { authApi }) =>
   action$.pipe(
@@ -24,6 +24,15 @@ export const setUserAuthEpic: IEpicRoot = (action$, state$, { authApi }) =>
     filter(isActionOf(setUserAuth)),
     map(action => {
       authApi.setUser(action.payload);
-      return noAction();
+      return emptyAction();
+    })
+  );
+
+export const logoutAuthEpic: IEpicRoot = (action$, state$, { authApi }) =>
+  action$.pipe(
+    filter(isActionOf(logoutAuth)),
+    map(action => {
+      authApi.logout();
+      return push('/');
     })
   );

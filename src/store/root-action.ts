@@ -3,10 +3,10 @@ import { createStandardAction } from 'typesafe-actions';
 import * as todosActions from '../features/todos/actions';
 import * as authActions from '../features/auth/actions';
 
-export const noAction = createStandardAction('NONE')();
+export const emptyAction = createStandardAction('EMPTY_ACTION')();
 
 export default {
-  system: { noAction },
+  system: { noAction: emptyAction },
   router: routerActions,
   todos: todosActions,
   auth: authActions,

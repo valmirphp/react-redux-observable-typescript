@@ -1,6 +1,6 @@
 import { createReducer } from 'typesafe-actions';
 import { User } from 'MyModels';
-import { loadAuthAsync, setUserAuth } from './actions';
+import { loadAuthAsync, logoutAuth, setUserAuth } from './actions';
 
 export interface AuthState {
   loading: boolean;
@@ -34,6 +34,10 @@ export const authReducer = createReducer<AuthState>(initialState)
   .handleAction(setUserAuth, (state, action) => ({
     ...state,
     user: action.payload,
+  }))
+  .handleAction(logoutAuth, state => ({
+    ...state,
+    user: undefined,
   }));
 
 export default authReducer;
